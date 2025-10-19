@@ -75,14 +75,16 @@ graph TD
 
         %% 2. Actor 更新 (Policy Gradient Update)
         Advantage_Calc -.-> PPO_Update_Actor["PPO 策略梯度更新"];
-        PPO_Update_Actor --> GatingFusionNetwork; %% 更新融合网络参数
+        PPO_Update_Actor --> GatingFusionNetwork;
+		%% 更新融合网络参数
 
         %% 3. Critic 更新 (Value Loss Update)
         Predicted_Reward --> Value_Loss_Calc("Value Loss = (Target - V(s))^2");
         Training_Target --> Value_Loss_Calc;
 
         Value_Loss_Calc --> PPO_Update_Critic["PPO 价值损失更新"];
-        PPO_Update_Critic --> ValueNetwork; %% 更新价值网络参数
+        PPO_Update_Critic --> ValueNetwork;
+		%% 更新价值网络参数
     end
 
     subgraph "输出与融合 (Output and Fusion)"
@@ -454,5 +456,6 @@ Sample Game Results (last 5):
 | douzero_ADP      | 0.47695/-0.1726  | 0.4529/-0.1532 | 0.4486/0.0792 | /              |
 
 在 1w 副牌的实验中，本文提出的 **ADP+WP+gating_wp** 模型在总体表现上优于所有基线模型。具体而言，该模型对 **PerfectDou**、**DouZero_WP** 和 **DouZero_ADP** 的胜率分别为 **51.26%**、**53.18%** 和 **52.31%**，平均得分差均为正值，表明其在不同类型对手面前均保持稳定优势。
+
 
 该结果表明，gating 模型能够在胜率最大化与收益期望之间取得更优平衡，从而实现更强的博弈适应性与泛化性。性能提升的关键在于其动态权重机制，可根据局面自适应地融合 ADP 与 WP 的策略优势，使模型更加灵活且稳健。总体而言，**ADP+WP+gating_wp** 模型在大规模对局中展现出最优的综合实力与策略稳定性。
