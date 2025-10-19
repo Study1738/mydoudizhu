@@ -1,0 +1,2785 @@
+nohup: ignoring input
+============================================================
+Action-Level Fusion Training
+============================================================
+Start time: 2025-10-14 18:59:08
+
+Configuration:
+  model_a: ./baselines/douzero_ADP/landlord.ckpt
+  model_b: ./baselines/douzero_WP/landlord.ckpt
+  position: landlord
+  fusion_type: gating
+  num_iterations: 20
+  games_per_iteration: 1000
+  eval_interval: 1
+  eval_games: 1000
+  objective: wp
+  gate_lr_scale: 0.05
+  gate_warmup_iters: 3
+  gate_reg_coeff: 0.001
+  num_actions: 309
+  feature_dim: 512
+  lr: 0.0003
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_epsilon: 0.2
+  value_loss_coef: 0.5
+  entropy_coef: 0.01
+  opponent: perfectdou
+  eval_data: ./eval_data_copy.pkl
+  device: cuda
+  save_dir: checkpoints/action_fusion_landlord_wp
+  save_interval: 100
+  resume: None
+============================================================
+Initializing Action-Level Fusion Trainer...
+  Model A: ./baselines/douzero_ADP/landlord.ckpt
+  Model B: ./baselines/douzero_WP/landlord.ckpt
+  Position: landlord
+  Fusion Type: gating
+  Device: cuda
+  Objective: wp
+  Gate LR scale: 0.05
+  Gate warmup iters: 3
+  Gate reg coeff: 0.001
+[GatingFusion Init] target_sigmoid=0.5000, bias=0.0000, expected_gate=0.5000
+
+Starting training for 20 iterations...
+  Games per iteration: 1000
+  Opponent: perfectdou
+------------------------------------------------------------
+Best model selection criterion: Win Rate
+------------------------------------------------------------
+
+=== Iteration 1/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.2280
+Updating fusion network...
+  Policy Loss: 0.6329
+  Value Loss: 0.7941
+  Total Loss: 1.0299
+  Gate Reg Loss: 0.000000
+  Fusion Weights: ADP=50.0% | WP=50.0%
+
+--- Evaluation at iteration 1 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 38.60%
+    Wins: 386, Losses: 614
+    Avg Reward (objective WP): -0.2280
+    WP Win Rate (metric derived): 38.60% (raw -0.2280)
+    Avg ADP: -0.2580
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.6329
+    Avg Value Loss: 0.7941
+    Avg Training Reward: -0.2280
+  >> Current Win Rate: 0.3860
+  ✓ New best model saved! Win Rate: 0.3860
+    Saved to: checkpoints/action_fusion_landlord_wp/best_fusion_wp.pt
+
+=== Iteration 2/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.2280
+Updating fusion network...
+  Policy Loss: 0.6329
+  Value Loss: 0.6994
+  Total Loss: 0.9826
+  Gate Reg Loss: 0.000000
+  Fusion Weights: ADP=50.0% | WP=50.0%
+
+--- Evaluation at iteration 2 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 38.60%
+    Wins: 386, Losses: 614
+    Avg Reward (objective WP): -0.2280
+    WP Win Rate (metric derived): 38.60% (raw -0.2280)
+    Avg ADP: -0.2580
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.6329
+    Avg Value Loss: 0.6994
+    Avg Training Reward: -0.2280
+  >> Current Win Rate: 0.3860
+
+=== Iteration 3/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.2280
+Updating fusion network...
+  Policy Loss: 0.6329
+  Value Loss: 0.6533
+  Total Loss: 0.9595
+  Gate Reg Loss: 0.000000
+  Fusion Weights: ADP=50.0% | WP=50.0%
+
+--- Evaluation at iteration 3 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 38.60%
+    Wins: 386, Losses: 614
+    Avg Reward (objective WP): -0.2280
+    WP Win Rate (metric derived): 38.60% (raw -0.2280)
+    Avg ADP: -0.2580
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.6329
+    Avg Value Loss: 0.6533
+    Avg Training Reward: -0.2280
+  >> Current Win Rate: 0.3860
+
+=== Iteration 4/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.2280
+Updating fusion network...
+  Policy Loss: 0.4812
+  Value Loss: 0.6191
+  Total Loss: 0.7910
+  Gate Reg Loss: 0.000139
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 4 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.50%
+    Wins: 405, Losses: 595
+    Avg Reward (objective WP): -0.1900
+    WP Win Rate (metric derived): 40.50% (raw -0.1900)
+    Avg ADP: -0.2390
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4812
+    Avg Value Loss: 0.6191
+    Avg Training Reward: -0.2280
+  >> Current Win Rate: 0.4050
+  ✓ New best model saved! Win Rate: 0.4050
+    Saved to: checkpoints/action_fusion_landlord_wp/best_fusion_wp.pt
+
+=== Iteration 5/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4473
+  Value Loss: 0.6606
+  Total Loss: 0.7778
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 5 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4473
+    Avg Value Loss: 0.6606
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4040
+
+=== Iteration 6/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4473
+  Value Loss: 0.6050
+  Total Loss: 0.7500
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 6 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4473
+    Avg Value Loss: 0.6050
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4040
+
+=== Iteration 7/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4473
+  Value Loss: 0.5627
+  Total Loss: 0.7288
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 7 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4473
+    Avg Value Loss: 0.5627
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4040
+
+=== Iteration 8/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1940
+Updating fusion network...
+  Policy Loss: 0.4488
+  Value Loss: 0.5288
+  Total Loss: 0.7133
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 8 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4488
+    Avg Value Loss: 0.5288
+    Avg Training Reward: -0.1940
+  >> Current Win Rate: 0.4040
+
+=== Iteration 9/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1940
+Updating fusion network...
+  Policy Loss: 0.4488
+  Value Loss: 0.5024
+  Total Loss: 0.7002
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 9 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4488
+    Avg Value Loss: 0.5024
+    Avg Training Reward: -0.1940
+  >> Current Win Rate: 0.4040
+
+=== Iteration 10/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1940
+Updating fusion network...
+  Policy Loss: 0.4488
+  Value Loss: 0.4771
+  Total Loss: 0.6875
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 10 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4488
+    Avg Value Loss: 0.4771
+    Avg Training Reward: -0.1940
+  >> Current Win Rate: 0.4040
+
+=== Iteration 11/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4473
+  Value Loss: 0.4507
+  Total Loss: 0.6729
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 11 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4473
+    Avg Value Loss: 0.4507
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4040
+
+=== Iteration 12/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4473
+  Value Loss: 0.4336
+  Total Loss: 0.6643
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 12 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.50%
+    Wins: 405, Losses: 595
+    Avg Reward (objective WP): -0.1900
+    WP Win Rate (metric derived): 40.50% (raw -0.1900)
+    Avg ADP: -0.2390
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4473
+    Avg Value Loss: 0.4336
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4050
+
+=== Iteration 13/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4475
+  Value Loss: 0.4105
+  Total Loss: 0.6529
+  Gate Reg Loss: 0.000160
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 13 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.70%
+    Wins: 407, Losses: 593
+    Avg Reward (objective WP): -0.1860
+    WP Win Rate (metric derived): 40.70% (raw -0.1860)
+    Avg ADP: -0.2350
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4475
+    Avg Value Loss: 0.4105
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4070
+  ✓ New best model saved! Win Rate: 0.4070
+    Saved to: checkpoints/action_fusion_landlord_wp/best_fusion_wp.pt
+
+=== Iteration 14/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4471
+  Value Loss: 0.3837
+  Total Loss: 0.6391
+  Gate Reg Loss: 0.000159
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 14 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.30%
+    Wins: 403, Losses: 597
+    Avg Reward (objective WP): -0.1940
+    WP Win Rate (metric derived): 40.30% (raw -0.1940)
+    Avg ADP: -0.2450
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4471
+    Avg Value Loss: 0.3837
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4030
+
+=== Iteration 15/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1900
+Updating fusion network...
+  Policy Loss: 0.4500
+  Value Loss: 0.3686
+  Total Loss: 0.6345
+  Gate Reg Loss: 0.000157
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 15 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.40%
+    Wins: 404, Losses: 596
+    Avg Reward (objective WP): -0.1920
+    WP Win Rate (metric derived): 40.40% (raw -0.1920)
+    Avg ADP: -0.2440
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4500
+    Avg Value Loss: 0.3686
+    Avg Training Reward: -0.1900
+  >> Current Win Rate: 0.4040
+
+=== Iteration 16/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1940
+Updating fusion network...
+  Policy Loss: 0.4487
+  Value Loss: 0.3529
+  Total Loss: 0.6253
+  Gate Reg Loss: 0.000153
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 16 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.70%
+    Wins: 407, Losses: 593
+    Avg Reward (objective WP): -0.1860
+    WP Win Rate (metric derived): 40.70% (raw -0.1860)
+    Avg ADP: -0.2390
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4487
+    Avg Value Loss: 0.3529
+    Avg Training Reward: -0.1940
+  >> Current Win Rate: 0.4070
+
+=== Iteration 17/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4507
+  Value Loss: 0.3475
+  Total Loss: 0.6246
+  Gate Reg Loss: 0.000142
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 17 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.70%
+    Wins: 407, Losses: 593
+    Avg Reward (objective WP): -0.1860
+    WP Win Rate (metric derived): 40.70% (raw -0.1860)
+    Avg ADP: -0.2360
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4507
+    Avg Value Loss: 0.3475
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4070
+
+=== Iteration 18/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1920
+Updating fusion network...
+  Policy Loss: 0.4553
+  Value Loss: 0.3660
+  Total Loss: 0.6384
+  Gate Reg Loss: 0.000138
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 18 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.50%
+    Wins: 405, Losses: 595
+    Avg Reward (objective WP): -0.1900
+    WP Win Rate (metric derived): 40.50% (raw -0.1900)
+    Avg ADP: -0.2430
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4553
+    Avg Value Loss: 0.3660
+    Avg Training Reward: -0.1920
+  >> Current Win Rate: 0.4050
+
+=== Iteration 19/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1960
+Updating fusion network...
+  Policy Loss: 0.4478
+  Value Loss: 0.3373
+  Total Loss: 0.6166
+  Gate Reg Loss: 0.000134
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 19 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 40.30%
+    Wins: 403, Losses: 597
+    Avg Reward (objective WP): -0.1940
+    WP Win Rate (metric derived): 40.30% (raw -0.1940)
+    Avg ADP: -0.2460
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4478
+    Avg Value Loss: 0.3373
+    Avg Training Reward: -0.1960
+  >> Current Win Rate: 0.4030
+
+=== Iteration 20/20 ===
+Collecting 1000 game trajectories...
+  Progress: 10/1000 games, collected 10 valid trajectories
+  Progress: 20/1000 games, collected 20 valid trajectories
+  Progress: 30/1000 games, collected 30 valid trajectories
+  Progress: 40/1000 games, collected 40 valid trajectories
+  Progress: 50/1000 games, collected 50 valid trajectories
+  Progress: 60/1000 games, collected 60 valid trajectories
+  Progress: 70/1000 games, collected 70 valid trajectories
+  Progress: 80/1000 games, collected 80 valid trajectories
+  Progress: 90/1000 games, collected 90 valid trajectories
+  Progress: 100/1000 games, collected 100 valid trajectories
+  Progress: 110/1000 games, collected 110 valid trajectories
+  Progress: 120/1000 games, collected 120 valid trajectories
+  Progress: 130/1000 games, collected 130 valid trajectories
+  Progress: 140/1000 games, collected 140 valid trajectories
+  Progress: 150/1000 games, collected 150 valid trajectories
+  Progress: 160/1000 games, collected 160 valid trajectories
+  Progress: 170/1000 games, collected 170 valid trajectories
+  Progress: 180/1000 games, collected 180 valid trajectories
+  Progress: 190/1000 games, collected 190 valid trajectories
+  Progress: 200/1000 games, collected 200 valid trajectories
+  Progress: 210/1000 games, collected 210 valid trajectories
+  Progress: 220/1000 games, collected 220 valid trajectories
+  Progress: 230/1000 games, collected 230 valid trajectories
+  Progress: 240/1000 games, collected 240 valid trajectories
+  Progress: 250/1000 games, collected 250 valid trajectories
+  Progress: 260/1000 games, collected 260 valid trajectories
+  Progress: 270/1000 games, collected 270 valid trajectories
+  Progress: 280/1000 games, collected 280 valid trajectories
+  Progress: 290/1000 games, collected 290 valid trajectories
+  Progress: 300/1000 games, collected 300 valid trajectories
+  Progress: 310/1000 games, collected 310 valid trajectories
+  Progress: 320/1000 games, collected 320 valid trajectories
+  Progress: 330/1000 games, collected 330 valid trajectories
+  Progress: 340/1000 games, collected 340 valid trajectories
+  Progress: 350/1000 games, collected 350 valid trajectories
+  Progress: 360/1000 games, collected 360 valid trajectories
+  Progress: 370/1000 games, collected 370 valid trajectories
+  Progress: 380/1000 games, collected 380 valid trajectories
+  Progress: 390/1000 games, collected 390 valid trajectories
+  Progress: 400/1000 games, collected 400 valid trajectories
+  Progress: 410/1000 games, collected 410 valid trajectories
+  Progress: 420/1000 games, collected 420 valid trajectories
+  Progress: 430/1000 games, collected 430 valid trajectories
+  Progress: 440/1000 games, collected 440 valid trajectories
+  Progress: 450/1000 games, collected 450 valid trajectories
+  Progress: 460/1000 games, collected 460 valid trajectories
+  Progress: 470/1000 games, collected 470 valid trajectories
+  Progress: 480/1000 games, collected 480 valid trajectories
+  Progress: 490/1000 games, collected 490 valid trajectories
+  Progress: 500/1000 games, collected 500 valid trajectories
+  Progress: 510/1000 games, collected 510 valid trajectories
+  Progress: 520/1000 games, collected 520 valid trajectories
+  Progress: 530/1000 games, collected 530 valid trajectories
+  Progress: 540/1000 games, collected 540 valid trajectories
+  Progress: 550/1000 games, collected 550 valid trajectories
+  Progress: 560/1000 games, collected 560 valid trajectories
+  Progress: 570/1000 games, collected 570 valid trajectories
+  Progress: 580/1000 games, collected 580 valid trajectories
+  Progress: 590/1000 games, collected 590 valid trajectories
+  Progress: 600/1000 games, collected 600 valid trajectories
+  Progress: 610/1000 games, collected 610 valid trajectories
+  Progress: 620/1000 games, collected 620 valid trajectories
+  Progress: 630/1000 games, collected 630 valid trajectories
+  Progress: 640/1000 games, collected 640 valid trajectories
+  Progress: 650/1000 games, collected 650 valid trajectories
+  Progress: 660/1000 games, collected 660 valid trajectories
+  Progress: 670/1000 games, collected 670 valid trajectories
+  Progress: 680/1000 games, collected 680 valid trajectories
+  Progress: 690/1000 games, collected 690 valid trajectories
+  Progress: 700/1000 games, collected 700 valid trajectories
+  Progress: 710/1000 games, collected 710 valid trajectories
+  Progress: 720/1000 games, collected 720 valid trajectories
+  Progress: 730/1000 games, collected 730 valid trajectories
+  Progress: 740/1000 games, collected 740 valid trajectories
+  Progress: 750/1000 games, collected 750 valid trajectories
+  Progress: 760/1000 games, collected 760 valid trajectories
+  Progress: 770/1000 games, collected 770 valid trajectories
+  Progress: 780/1000 games, collected 780 valid trajectories
+  Progress: 790/1000 games, collected 790 valid trajectories
+  Progress: 800/1000 games, collected 800 valid trajectories
+  Progress: 810/1000 games, collected 810 valid trajectories
+  Progress: 820/1000 games, collected 820 valid trajectories
+  Progress: 830/1000 games, collected 830 valid trajectories
+  Progress: 840/1000 games, collected 840 valid trajectories
+  Progress: 850/1000 games, collected 850 valid trajectories
+  Progress: 860/1000 games, collected 860 valid trajectories
+  Progress: 870/1000 games, collected 870 valid trajectories
+  Progress: 880/1000 games, collected 880 valid trajectories
+  Progress: 890/1000 games, collected 890 valid trajectories
+  Progress: 900/1000 games, collected 900 valid trajectories
+  Progress: 910/1000 games, collected 910 valid trajectories
+  Progress: 920/1000 games, collected 920 valid trajectories
+  Progress: 930/1000 games, collected 930 valid trajectories
+  Progress: 940/1000 games, collected 940 valid trajectories
+  Progress: 950/1000 games, collected 950 valid trajectories
+  Progress: 960/1000 games, collected 960 valid trajectories
+  Progress: 970/1000 games, collected 970 valid trajectories
+  Progress: 980/1000 games, collected 980 valid trajectories
+  Progress: 990/1000 games, collected 990 valid trajectories
+  Progress: 1000/1000 games, collected 1000 valid trajectories
+  Collected 1000 valid trajectories
+  Avg trajectory reward: -0.1940
+Updating fusion network...
+  Policy Loss: 0.4564
+  Value Loss: 0.3339
+  Total Loss: 0.6235
+  Gate Reg Loss: 0.000131
+  Fusion Weights: ADP=10.0% | WP=90.0%
+
+--- Evaluation at iteration 20 ---
+Evaluating on 1000 games...
+Evaluated 0/1000 games
+Evaluated 100/1000 games
+Evaluated 200/1000 games
+Evaluated 300/1000 games
+Evaluated 400/1000 games
+Evaluated 500/1000 games
+Evaluated 600/1000 games
+Evaluated 700/1000 games
+Evaluated 800/1000 games
+Evaluated 900/1000 games
+  Evaluation Results:
+    Win Rate: 39.90%
+    Wins: 399, Losses: 601
+    Avg Reward (objective WP): -0.2020
+    WP Win Rate (metric derived): 39.90% (raw -0.2020)
+    Avg ADP: -0.2570
+  Training Stats (last 1 iters):
+    Avg Policy Loss: 0.4564
+    Avg Value Loss: 0.3339
+    Avg Training Reward: -0.1940
+  >> Current Win Rate: 0.3990
+
+============================================================
+TRAINING SUMMARY
+============================================================
+Total Iterations: 20
+Training Objective: WP
+Best Win Rate: 0.4070
+Best model saved to: checkpoints/action_fusion_landlord_wp/best_fusion_wp.pt
+
+Loss Statistics:
+  Final Policy Loss: 0.4564
+  Final Value Loss: 0.3339
+  Avg Policy Loss (last 20): 0.4783
+  Avg Value Loss (last 20): 0.4944
+
+Reward Statistics:
+  Final Avg Reward (objective WP): -0.1940
+  Avg Reward (objective WP last 20): -0.1998
+  Improvement: +0.0340
+  Final Avg Reward (WP metric): -0.1940
+  Avg Reward (WP metric last 20): -0.1998
+  Final Avg Reward (ADP metric): -0.2460
+  Avg Reward (ADP metric last 20): -0.2470
+============================================================
+
+Training completed! Final model saved to checkpoints/action_fusion_landlord_wp/final_fusion.pt
+Best model saved to checkpoints/action_fusion_landlord_wp/best_fusion_wp.pt
