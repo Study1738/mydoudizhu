@@ -8,6 +8,8 @@
 
 这种方法使得AI可以根据局势动态切换策略：在优势局，它可能更相信 WP（胜率）模型的决策以求稳；在劣势局或关键时刻，它可能更相信 ADP（得分）模型的决策来博取高分。
 
+主要代码在 `DouZero/fusion_action_level` 下。
+
 ## 目录
 
 [TOC]
@@ -26,120 +28,132 @@ graph TD
         Infoset["Infoset (游戏状态)"];
     end
 
-    subgraph "特征提取 (Feature Extraction)"
-        Infoset --> FeatureExtractor("FeatureExtractor (非NN)")
-        FeatureExtractor --> State_Features["State_Features (512维)"];
+    subgraph "基础动作价值预测 (Base Action-Value Prediction)"
+        Infoset --> BaseModelA["Base Model A (Frozen)"];
+        Infoset --> BaseModelB["Base Model B (Frozen)"];
+        BaseModelA --> Values_A["Values_A (Q值/动作价值)"];
+        BaseModelB --> Values_B["Values_B (Q值/动作价值)"];
     end
+    
+    subgraph "特征提取 (Action-Level Feature Extraction)"
+        Infoset --> FeatureExtractor["ActionLevelFeatureExtractor"];
+        
+        Values_A --> FeatureExtractor;
+        Values_B --> FeatureExtractor;
+        
 
-    subgraph "基础Q值预测 (Base Q-Value Prediction)"
-        Infoset --> BaseModelA["Base Model A (Frozen)"]
-        Infoset --> BaseModelB["Base Model B (Frozen)"]
-        BaseModelA --> Values_A["Values_A (Q值)"];
-        BaseModelB --> Values_B["Values_B (Q值)"];
+        FeatureExtractor --> State_Features["State_Features (游戏状态特征)"];
+        FeatureExtractor --> Disagreement_Features["Disagreement_Features (模型分歧特征)"];
+
+        State_Features --> Combined_Features["Combined_Features (最终特征输入)"];
+        Disagreement_Features --> Combined_Features;
     end
 
     subgraph "融合网络输入准备 (Fusion Network Input Prep)"
-        State_Features --> Summary_Stats_Calc["Summary_Stats Calculation"]
-        Values_A --> Summary_Stats_Calc
-        Values_B --> Summary_Stats_Calc
-        Summary_Stats_Calc --> Summary_Stats["Summary_Stats (6维)"]
-
-        State_Features --> Input_Critic["Input (512维)"]
-
-        Summary_Stats --> Combined_Input["Combined_Input (518维)"]
-        State_Features --> Combined_Input;
+        Values_A --> Fusion_Input_Prep["Fusion Network Input Prep"];
+        Values_B --> Fusion_Input_Prep;
+        Combined_Features --> Fusion_Input_Prep;
+        
+        Fusion_Input_Prep --> Fused_Actor_Input["Actor Input (Values_A, Values_B, Features)"];
+        Fusion_Input_Prep --> Critic_Input["Critic Input (Features)"];
     end
 
     subgraph "训练部分 (Trainable Components)"
-        Combined_Input --> GatingFusionNetwork["GatingFusionNetwork (Actor, 训练1)"]
-        Input_Critic --> ValueNetwork["ValueNetwork (Critic, 训练2)"];
+        %% Actor
+        Fused_Actor_Input --> GatingFusionNetwork["GatingFusionNetwork (Actor, 策略网络)"];
+        
+        %% Critic
+        Critic_Input --> ValueNetwork["ValueNetwork (Critic, 价值网络)"];
+        ValueNetwork --> Predicted_Reward["Predicted_Reward (V(s) 状态价值)"];
+
+        %% 训练目标
+        Trajectory_Data["轨迹数据 (R_t)"] --> Training_Target["Training_Target (Target Return 目标回报)"];
+
+        %% 1. 计算优势函数 (Advantage)
+        Predicted_Reward --> Advantage_Calc("Advantage A = Target - V(s)");
+        Training_Target --> Advantage_Calc;
+
+        %% 2. Actor 更新 (Policy Gradient Update)
+        Advantage_Calc -.-> PPO_Update_Actor["PPO 策略梯度更新"];
+        PPO_Update_Actor --> GatingFusionNetwork; %% 更新融合网络参数
+
+        %% 3. Critic 更新 (Value Loss Update)
+        Predicted_Reward --> Value_Loss_Calc("Value Loss = (Target - V(s))^2");
+        Training_Target --> Value_Loss_Calc;
+
+        Value_Loss_Calc --> PPO_Update_Critic["PPO 价值损失更新"];
+        PPO_Update_Critic --> ValueNetwork; %% 更新价值网络参数
     end
 
     subgraph "输出与融合 (Output and Fusion)"
-        GatingFusionNetwork --> Gate_Weight["Gate_Weight (Beta)"]
+        GatingFusionNetwork --> Gate_Weight["Gate_Weight (β)"];
 
-        ValueNetwork --> Predicted_Reward["Predicted_Reward (标量)"]
-        Predicted_Reward -- 用于训练 --> Training_Target[(目标奖励)]
-
-        Gate_Weight --> Fused_Values["Fused_Values (融合后的Q值)"]
-        Values_A --> Fused_Values
-        Values_B --> Fused_Values
+        %% 融合公式: Fused_Values = Beta*A + (1-Beta)*B
+        Gate_Weight ==> Fused_Values["Fused_Values (β*A + (1-β)*B)"];
+        Values_A ==> Fused_Values;
+        Values_B ==> Fused_Values;
 
         Fused_Values --> Final_Action["最终动作"];
     end
+    
+    style Predicted_Reward fill:#E0FFFF,stroke:#000
+    style Training_Target fill:#FFC0CB,stroke:#000
+    style Advantage_Calc fill:#ADD8E6,stroke:#000
+    style Value_Loss_Calc fill:#FFFFE0,stroke:#000
 ```
 
-整体决策流程如下：
+我们真正训练的神经网络架构分为两个独立的部分：
 
-1.  **基础模型推理 (Base Model Inference)**
-    -   给定当前游戏状态 `infoset`。
-    -   冻结的 **模型A (例如 DouZero-ADP)** 计算所有合法动作的价值（Q-values）：`V_A`。
-    -   冻结的 **模型B (例如 DouZero-WP)** 计算所有合法动作的价值（Q-values）：`V_B`。
-    -   这一步由 `dual_model.py` 中的 `DualModelInference` 类完成。
-2.  **状态特征提取 (State Feature Extraction)**
-    -   `feature_extractor.py` 中的 `ActionLevelFeatureExtractor` 模块从 `infoset` 中提取一个高维特征向量 `S` (例如 512 维)。
-    -   这个特征 `S` 包含了：
-        -   当前手牌特征（例如单牌、对子、炸弹的数量）。
-        -   游戏阶段特征（例如游戏是刚开始还是接近尾声）。
-        -   历史动作特征（例如已经打出了多少牌）。
-        -   对手信息特征（例如对手剩余手牌数量）。
-        -   **模型差异特征 (Model Disagreement Features)**：这是最关键的特征之一，包括 `V_A` 和 `V_B` 之间的统计差异（如均值、最大值差异）以及它们最优动作的一致性。
-3.  **门控网络决策 (Gating Network Decision)**
-    -   可训练的 **门控融合网络 (GatingFusionNetwork)**（定义于 `fusion_network.py`）是一个小型的多层感知机 (MLP)。
-    -   它接收 `state_features` 和 `V_A`, `V_B` 的摘要信息作为输入。
-    -   它输出一个**单一标量门控权重 $\beta$**（例如，通过 Sigmoid 激活，并限制在 `[0.1, 0.9]` 之间，以确保两个模型始终有贡献）。
-    -   $\beta$ = `GatingNetwork(S)`
-4.  **最终动作选择 (Final Action Selection)**
-    -   融合后的动作价值 `V_fused` 通过加权平均计算得出：
-    -   **$V_{fused} = \beta \cdot V_A + (1 - \beta) \cdot V_B$**
-    -   AI 最终选择 `V_fused` 中价值最高的动作。
+1.  **`fusion_net` (门控融合网络)**：扮演 **Actor (演员)** 角色，负责**决策**，即动态决定如何融合基础模型的输出。
+2.  **`value_net` (价值网络)**：扮演 **Critic (评论家)** 角色，负责**评估**，即判断当前状态最终能带来多少回报。
 
-此外，还有一个并行的**价值网络 (Value Network)**（定义于 `trainer.py`），它也是一个 MLP，用于估计当前状态 `S` 的预期最终回报（即 Critic 部分），辅助 Actor（门控网络）的训练。
+这两个网络都依赖于一个关键的**非神经网络**组件：
+
+3.   **`feature_extractor` (特征提取器)**：负责为 `fusion_net` 和 `value_net` 准备高维度的输入向量。
 
 ### 特征提取器 (ActionLevelFeatureExtractor)
 
-这不是一个神经网络，但它是架构的**输入源**。
+这是架构的输入预处理单元，它不是一个神经网络。
 
 -   **文件**: `feature_extractor.py`
--   **作用**: 它的 `extract_features` 方法负责从 `infoset` (游戏状态) 和 `model_outputs` (基础模型输出) 中提取一个高维特征向量。
--   **包含内容**:
-    -   手牌特征 (`_encode_hand_cards`)
-    -   游戏阶段特征 (`_encode_game_phase`)
-    -   位置编码 (`_encode_position`)
-    -   历史动作 (`_encode_action_history`)
-    -   对手信息 (`_encode_opponents`)
-    -   **模型差异特征** (`_encode_model_disagreement`)：这是关键，它分析 `values_a` 和 `values_b` 的差异，如Q值均值、最大值差异、动作排序一致性等。
--   **输出**: 一个被填充或截断到 `feature_dim` (默认为 **512**) 维的 `torch.tensor`。这个向量是后续两个神经网络的主要输入。
+-   **作用**: 它的核心方法 `extract_features` 从游戏状态 `infoset` 和两个基础模型的输出 `model_outputs` 中提取一个高维特征向量。
+-   **关键特征**:
+    -   手牌特征（单牌、对子、炸弹数量等）。
+    -   游戏阶段特征（开局、中局、残局）。
+    -   对手信息（剩余手牌数）。
+    -   **模型差异特征**：分析 `Values_A` 和 `Values_B` 之间的统计差异，例如Q值均值差、最大值差、Top-K动作的重合度等。
+-   **输出**: `State_Features`，一个被填充或截断到 `feature_dim` (默认为 **512**) 维的 `torch.tensor`。这个向量是后续两个神经网络的主要输入。
 
 ### 门控融合网络 (GatingFusionNetwork) - (Actor)
 
-这是**第一块可训练**的网络，负责**决策**。
+这是**第一块可训练**的网络，是**决策者 (Actor)**。
 
 -   **文件**: `fusion_network.py`
--   **作用**: 接收状态特征和模型输出摘要，然后输出一个**标量门控权重 $\beta$**（例如 0.7），用于决定如何加权 `values_a` 和 `values_b`。
+-   **作用**: 接收状态特征和模型输出摘要，然后输出一个**标量门控权重 $\beta$**，用于决定 `Values_A` 和 `Values_B` 各占多少比重。
 -   **输入**: 它的输入由两部分在 `forward` 方法中动态拼接而成：
     1.  **`state_features`**: 来自特征提取器的 **512** 维向量。
-    2.  **`summary` (摘要统计)**: 一个实时的 **6** 维向量，包含 `values_a` 和 `values_b` 的均值、最大值和差异等统计。
+    2.  **`summary` (摘要统计)**: 一个实时的 **6** 维向量，包含 `Values_A` 和 `Values_B` 的均值、最大值和差异等统计。
 -   **总输入维度**: 512 + 6 = **518** 维。
--   **网络层级 (基于默认参数)**:
+-   **网络层级** (基于 `hidden_dim=256`)：
 
-| **层 (Layer)** | **类型 (Type)** | **输入神经元 (Input)** | **输出神经元 (Output)** | **激活函数 (Activation)** | **作用 (Function)**                            |
-| -------------- | --------------- | ---------------------- | ----------------------- | ------------------------- | ---------------------------------------------- |
-| `fc1`          | `nn.Linear`     | 518                    | 256                     | `ReLU`                    | 第一次特征变换                                 |
-| `fc2`          | `nn.Linear`     | 256                    | 128                     | `ReLU`                    | 第二次特征变换                                 |
-| `gate`         | `nn.Linear`     | 128                    | 1                       | `Sigmoid` (scaled)        | 输出范围在 `[0.1, 0.9]` 之间的门控权重 $\beta$ |
+| **层 (Layer)** | **类型 (Type)** | **输入神经元 (Input)** | **输出神经元 (Output)** | **激活函数 (Activation)** | **作用 (Function)**                                        |
+| -------------- | --------------- | ---------------------- | ----------------------- | ------------------------- | ---------------------------------------------------------- |
+| `fc1`          | `nn.Linear`     | 518                    | 256                     | `ReLU`                    | 第一次特征变换                                             |
+| `fc2`          | `nn.Linear`     | 256                    | 128                     | `ReLU`                    | 第二次特征变换                                             |
+| `gate`         | `nn.Linear`     | 128                    | 1                       | `0.1 + 0.8 * Sigmoid(x)`  | 输出最终的门控权重 $\beta$，确保其范围在 `[0.1, 0.9]` 之间 |
 
--   **输出**: 一个标量 `gate_weights` (即 $\beta$)。最终的融合Q值计算为：`fused_values = gate_weights * values_a + (1 - gate_weights) * values_b`。
+-   **输出**: `Gate_Weight (Beta)`，一个标量。
+-   **最终计算**: 融合后的Q值 `Fused_Values` 通过 `Beta * Values_A + (1 - Beta) * Values_B` 计算得出。
 
 ### 价值网络 (ValueNetwork) - (Critic)
 
-这是**第二块可训练**的网络，负责**评估**。
+这是**第二块可训练**的网络，是**评估者 (Critic)**。
 
 -   **文件**: `trainer.py` (在 `ActionFusionTrainer` 的 `__init__` 中定义)
--   **作用**: 接收与 Actor *几乎相同*的状态特征，并预测当前状态的**预期最终回报**（例如，预测这局游戏最终会赢 (+1.0) 还是输 (-1.0)）。这个预测值在训练中用于计算 `value_loss` (价值损失)。
+-   **作用**: 接收状态特征，并预测当前状态的**预期最终回报**（例如，预测这局游戏最终得分是 +2 还是 -4）。这个预测值在训练中用于计算 `value_loss` (价值损失)。
 -   **输入**: **仅** `state_features` 向量。
--   **总输入维度**: **512** 维 (注意：它不接收 6 维的 `summary` 统计)。
--   **网络层级 (基于 `nn.Sequential` 定义)**:
+-   **总输入维度**: **512** 维。
+-   **网络层级** (基于 `feature_dim=512`)：
 
 | **层 (Layer)** | **类型 (Type)** | **输入神经元 (Input)** | **输出神经元 (Output)** | **激活函数 (Activation)** | **作用 (Function)**    |
 | -------------- | --------------- | ---------------------- | ----------------------- | ------------------------- | ---------------------- |
@@ -147,15 +161,7 @@ graph TD
 | Layer 2        | `nn.Linear`     | 256                    | 128                     | `ReLU`                    | 第二次状态评估         |
 | Layer 3        | `nn.Linear`     | 128                    | 1                       | `None`                    | 输出最终的标量价值预测 |
 
--   **输出**: 一个标量 `value_pred`，代表对最终回报的预测。
-
-### 总结
-
--   我们**冻结**两个强大的基础模型 (Model A, Model B)。
--   我们**训练**两个小型的 MLP 网络。
--   **Actor (`GatingFusionNetwork`)**: `[518] -> [256] -> [128] -> [1]` (输出 $\beta$ 权重)。
--   **Critic (`ValueNetwork`)**: `[512] -> [256] -> [128] -> [1]` (输出预期回报)。
--   `Actor` (决策) 和 `Critic` (评估) 都严重依赖于 `FeatureExtractor` 提供的 **512** 维状态特征向量。
+-   **输出**: `Predicted_Reward` (标量)，代表对最终回报的预测。
 
 ## 训练方法
 
@@ -384,3 +390,69 @@ Sample Game Results (last 5):
   Game 9999: [WIN] Winner=landlord, LL Reward=2.00, Farmer Reward=-2.00, Bombs=0
   Game 10000: [WIN] Winner=landlord, LL Reward=4.00, Farmer Reward=-4.00, Bombs=1
 ```
+
+## 结果展示
+
+1k 副牌
+
+| 地主             | 农民上家         | 农民下家         | 地主wp | 农民wp | 地主adp | 农民adp |
+| ---------------- | ---------------- | ---------------- | ------ | ------ | ------- | ------- |
+| douzero_ADP      | perfectdou       | perfectdou       | 0.355  | 0.645  | -0.666  | 0.666   |
+| perfectdou       | douzero_ADP      | douzero_ADP      | 0.449  | 0.551  | -0.416  | 0.416   |
+| douzero_WP       | perfectdou       | perfectdou       | 0.403  | 0.597  | -0.744  | 0.744   |
+| perfectdou       | douzero_WP       | douzero_WP       | 0.387  | 0.613  | -0.32   | 0.32    |
+| douzero_ADP      | douzero_WP       | douzero_WP       | 0.375  | 0.625  | -0.276  | 0.276   |
+| douzero_WP       | douzero_ADP      | douzero_ADP      | 0.477  | 0.523  | -0.444  | 0.444   |
+| douzero_ADP      | douzero_ADP      | douzero_ADP      | 0.418  | 0.582  | -0.438  | 0.438   |
+| douzero_WP       | douzero_WP       | douzero_WP       | 0.421  | 0.579  | -0.348  | 0.348   |
+| perfectdou       | perfectdou       | perfectdou       | 0.405  | 0.595  | -0.522  | 0.522   |
+| ADP+WP+gating_wp | perfectdou       | perfectdou       | 0.407  | 0.593  | -0.47   | 0.47    |
+| perfectdou       | ADP+WP+gating_wp | ADP+WP+gating_wp | 0.386  | 0.614  | -0.548  | 0.548   |
+| ADP+WP+gating_wp | douzero_ADP      | douzero_ADP      | 0.473  | 0.527  | -0.294  | 0.294   |
+| douzero_ADP      | ADP+WP+gating_wp | ADP+WP+gating_wp | 0.354  | 0.646  | -0.604  | 0.604   |
+| ADP+WP+gating_wp | douzero_WP       | douzero_WP       | 0.417  | 0.583  | -0.2    | 0.2     |
+| douzero_WP       | ADP+WP+gating_wp | ADP+WP+gating_wp | 0.419  | 0.581  | -0.584  | 0.584   |
+| perfectdou       | ADP+WP+gating_wp | perfectdou       | 0.389  | 0.611  | -0.524  | 0.524   |
+| perfectdou       | perfectdou       | ADP+WP+gating_wp | 0.389  | 0.611  | -0.528  | 0.528   |
+
+1k 副牌对阵表
+
+| WP/ADP           | ADP+WP+gating_wp | perfectdou   | douzero_WP  | douzero_ADP  |
+| ---------------- | ---------------- | ------------ | ----------- | ------------ |
+| ADP+WP+gating_wp | /                | 0.5105/0.039 | 0.499/0.192 | 0.5595/0.155 |
+| perfectdou       | 0.4895/-0.039    | /            | 0.492/0.212 | 0.547/0.125  |
+| douzero_WP       | 0.501/-0.192     | 0.508/-0.212 | /           | 0.551/-0.084 |
+| douzero_ADP      | 0.4405/-0.155    | 0.453/-0.125 | 0.449/0.084 | /            |
+
+1w 副牌
+
+| 地主             | 农民上家         | 农民下家         | 地主wp | 农民wp | 地主adp | 农民adp |
+| ---------------- | ---------------- | ---------------- | ------ | ------ | ------- | ------- |
+| douzero_ADP      | perfectdou       | perfectdou       | 0.359  | 0.641  | -0.67   | 0.67    |
+| perfectdou       | douzero_ADP      | douzero_ADP      | 0.4532 | 0.5468 | -0.3636 | 0.3636  |
+| douzero_WP       | perfectdou       | perfectdou       | 0.4041 | 0.5959 | -0.7018 | 0.7018  |
+| perfectdou       | douzero_WP       | douzero_WP       | 0.3867 | 0.6133 | -0.303  | 0.303   |
+| douzero_ADP      | douzero_WP       | douzero_WP       | 0.3608 | 0.6392 | -0.3738 | 0.3738  |
+| douzero_WP       | douzero_ADP      | douzero_ADP      | 0.4636 | 0.5364 | -0.5322 | 0.5322  |
+| douzero_ADP      | douzero_ADP      | douzero_ADP      | 0.4283 | 0.5717 | -0.4182 | 0.4182  |
+| douzero_WP       | douzero_WP       | douzero_WP       | 0.4054 | 0.5946 | -0.4448 | 0.4448  |
+| perfectdou       | perfectdou       | perfectdou       | 0.3838 | 0.6162 | -0.6052 | 0.6052  |
+| ADP+WP+gating_wp | perfectdou       | perfectdou       | 0.4029 | 0.5971 | -0.5334 | 0.5334  |
+| perfectdou       | ADP+WP+gating_wp | ADP+WP+gating_wp | 0.3777 | 0.6223 | -0.5756 | 0.5756  |
+| ADP+WP+gating_wp | douzero_ADP      | douzero_ADP      | 0.4016 | 0.5984 | -0.2908 | 0.2908  |
+| douzero_ADP      | ADP+WP+gating_wp | ADP+WP+gating_wp | 0.3555 | 0.6445 | -0.6318 | 0.6318  |
+| ADP+WP+gating_wp | douzero_WP       | douzero_WP       | 0.4651 | 0.5349 | -0.3466 | 0.3466  |
+| douzero_WP       | ADP+WP+gating_wp | ADP+WP+gating_wp | 0.4015 | 0.5985 | -0.6918 | 0.6918  |
+
+1w 副牌对阵表
+
+| WP/ADP           | ADP+WP+gating_wp | perfectdou     | douzero_WP    | douzero_ADP    |
+| ---------------- | ---------------- | -------------- | ------------- | -------------- |
+| ADP+WP+gating_wp | /                | 0.5126/0.0211  | 0.5318/0.1705 | 0.52305/0.1726 |
+| perfectdou       | 0.4874/-0.0211   | /              | 0.4913/0.1994 | 0.5471/0.1532  |
+| douzero_WP       | 0.4682/-0.1705   | 0.5087/-0.1994 | /             | 0.5514/-0.0792 |
+| douzero_ADP      | 0.47695/-0.1726  | 0.4529/-0.1532 | 0.4486/0.0792 | /              |
+
+在 1w 副牌的实验中，本文提出的 **ADP+WP+gating_wp** 模型在总体表现上优于所有基线模型。具体而言，该模型对 **PerfectDou**、**DouZero_WP** 和 **DouZero_ADP** 的胜率分别为 **51.26%**、**53.18%** 和 **52.31%**，平均得分差均为正值，表明其在不同类型对手面前均保持稳定优势。
+
+该结果表明，gating 模型能够在胜率最大化与收益期望之间取得更优平衡，从而实现更强的博弈适应性与泛化性。性能提升的关键在于其动态权重机制，可根据局面自适应地融合 ADP 与 WP 的策略优势，使模型更加灵活且稳健。总体而言，**ADP+WP+gating_wp** 模型在大规模对局中展现出最优的综合实力与策略稳定性。
